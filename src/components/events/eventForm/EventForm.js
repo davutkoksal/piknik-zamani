@@ -103,10 +103,15 @@ export default function EventForm({ match, history }) {
             />
             <EventFormMap latLng={coord} />
             <Button
-              // loading={isSubmitting}
+              loading={isSubmitting}
               disabled={isSubmitting || !isValid || !dirty}
               type="submit"
               content="Ekle"
+            />
+            <Button
+              primary
+              content="İptal"
+              onClick={() => history.push("/places")}
             />
           </Form>
         )}

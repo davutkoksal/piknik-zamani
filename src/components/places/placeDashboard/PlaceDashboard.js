@@ -10,18 +10,18 @@ import {
 } from "../../firestore/firestoreService";
 import SelectInput from "../../common/form/SelectInput";
 import { Formik, Form } from "formik";
-import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { cities } from "../../common/Options";
 import { asyncActionStart, asyncActionFinish } from "../../async/AsyncReducer";
 import { openModal } from "../../common/modal/ModalReducer";
+import LoadingComponent from "../../common/LoadingComponent";
+import { Redirect } from "react-router-dom";
 
 export default function PlaceDashboard({ history }) {
   const { authenticated } = useSelector((state) => state.auth);
+  const { loading, error } = useSelector((state) => state.async);
   const initialValues = { city: "" };
-  const validationSchema = Yup.object({
-    city: Yup.string().required("Bu alanı boş bırakamazsınız"),
-  });
+
   const dispatch = useDispatch();
   const { places } = useSelector((state) => state.places);
   useFirestoreCollection({
@@ -40,6 +40,11 @@ export default function PlaceDashboard({ history }) {
       console.log(error);
     }
   }
+  if (loading || (!places && !error))
+    return <LoadingComponent content="Yükleniyor..." />;
+
+  if (error) return <Redirect to="/error" />;
+
   return (
     <Grid reversed="mobile" stackable>
       <Grid.Column width={11}>
@@ -66,7 +71,6 @@ export default function PlaceDashboard({ history }) {
         <Segment>
           <Formik
             initialValues={initialValues}
-            validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting, resetForm }) => {
               try {
                 handleFiltering(values.city);
@@ -81,6 +85,7 @@ export default function PlaceDashboard({ history }) {
             {({ isValid, isSubmitting, dirty }) => (
               <Form className="ui form">
                 <SelectInput
+                  fluid
                   name="city"
                   placeholder="Tüm Şehirler"
                   options={cities}

@@ -18,7 +18,7 @@ export default function MainPage({ history }) {
             src="assets/logo.png"
             style={{ marginBottom: 12 }}
           />
-          Şimdi piknik yerlerini keşfetme vakti
+          Şimdi Piknik-Zamanı ! Piknik yerlerini keşfet...
         </Header>
         <Button onClick={() => history.push("/places")} size="huge" inverted>
           Piknik-Zamanı

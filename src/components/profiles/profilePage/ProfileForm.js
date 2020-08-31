@@ -6,6 +6,8 @@ import { Button } from "semantic-ui-react";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { updateUserProfile } from "../../firestore/firestoreService";
+import { interests } from "../../common/Options";
+import SelectInput from "../../common/form/SelectInput";
 
 export default function ProfileForm({ profile }) {
   return (
@@ -13,6 +15,8 @@ export default function ProfileForm({ profile }) {
       initialValues={{
         displayName: profile.displayName,
         description: profile.description || "",
+        occupation: "",
+        interests: "",
       }}
       validationSchema={Yup.object({
         displayName: Yup.string().required(),
@@ -30,7 +34,18 @@ export default function ProfileForm({ profile }) {
       {({ isSubmitting, isValid, dirty }) => (
         <Form className="ui form">
           <TextInput name="displayName" placeholder="Kullanıcı Adı" />
-          <TextArea name="description" placeholder="Kendinden Bahset" />
+          <TextInput name="occupation" type="text" placeholder="Mesleğiniz" />
+          <SelectInput
+            multiple
+            name="interests"
+            options={interests}
+            placeholder="Sevdiğiniz Doğa Sporlarını Seçiniz"
+          />
+          <TextArea
+            name="description"
+            placeholder="Kendinden Bahset"
+            rows={2}
+          />
           <Button
             loading={isSubmitting}
             disabled={isSubmitting || !isValid || !dirty}

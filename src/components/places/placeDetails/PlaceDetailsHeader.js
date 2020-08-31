@@ -12,7 +12,7 @@ export default function PlaceDetailsHeader({ place }) {
         <Item.Group>
           <Item>
             <Item.Content>
-              <Header size="huge" content={place?.title} />
+              <Header content={place?.title} />
               <p>
                 <strong>
                   <Link to={`/profile/${place.hostUid}`}>

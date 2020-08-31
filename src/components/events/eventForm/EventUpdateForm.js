@@ -22,8 +22,6 @@ import { toast } from "react-toastify";
 import { listenToEvents } from "../actions/EventActions";
 
 export default function EventUpdateForm({ match, history }) {
-  //   let initialCoord = {};
-  //   const [coord, setCoord] = useState(initialCoord);
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.async);
   const { events } = useSelector((state) => state.events);
@@ -102,6 +100,11 @@ export default function EventUpdateForm({ match, history }) {
               disabled={isSubmitting || !isValid || !dirty}
               type="submit"
               content="Güncelle"
+            />
+            <Button
+              primary
+              content="İptal"
+              onClick={() => history.push("/events")}
             />
           </Form>
         )}

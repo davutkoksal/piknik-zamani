@@ -25,11 +25,14 @@ export default function EventListItem({ event }) {
           </Item>
           <Item>
             <Item.Header
-              content={`Tarih : ${event.date.toLocaleDateString("tr", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}`}
+              content={`Etkinlik Tarihi : ${event.date.toLocaleDateString(
+                "tr",
+                {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                }
+              )}`}
             />
           </Item>
           {event.isCancelled && (

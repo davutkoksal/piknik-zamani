@@ -4,9 +4,14 @@ import { Formik, Form } from "formik";
 import TextInput from "../common/form/TextInput";
 import TextArea from "../common/form/TextArea";
 import * as Yup from "yup";
+import { addMessageToFirestore } from "../firestore/firestoreService";
 
 export default function HomePage() {
   const initialValues = { name: "", email: "", comment: "" };
+
+  function handleSubmit(values) {
+    addMessageToFirestore(values);
+  }
   return (
     <>
       <Segment.Group>
@@ -24,10 +29,10 @@ export default function HomePage() {
         </Segment>
         <Segment>
           <p>
-            Türkiye’de piknik ve doğa sporları yapılabilecek tüm yerleri güncel
-            şekilde doğa severlerle paylaşıyoruz. Böylece doğa severlere yeni
-            yerler keşfetmelerinde, etkinlikler düzenlemelerinde ve birbirleri
-            ile tanışmalarında yardımcı oluyoruz.
+            Türkiye’deki piknik yapılabilecek tüm yerleri güncel şekilde piknik
+            severlerle paylaşıyoruz. Böylece piknik severlere yeni yerler
+            keşfetmelerinde, etkinlikler düzenlemelerinde ve birbirleri ile
+            tanışmalarında yardımcı oluyoruz.
           </p>
         </Segment>
       </Segment.Group>
@@ -40,23 +45,32 @@ export default function HomePage() {
             email: Yup.string()
               .required("Geçerli bir email adresi giriniz!")
               .email(),
-            comment: Yup.string().required("Görüşlerinizi yazınız!").email(),
+            comment: Yup.string().required("Görüşlerinizi yazınız!"),
           })}
-          onSubmit={(values) => {
+          onSubmit={(values, { resetForm }) => {
             console.log(values);
+            handleSubmit(values);
+            resetForm({ values: "" });
           }}
         >
-          <Form className="ui form">
-            <TextInput name="name" placeholder="İsim" autoComplete="off" />
-            <TextInput name="email" placeholder="Email" autoComplete="off" />
-            <TextArea
-              name="comment"
-              placeholder="Mesajınız"
-              rows="3"
-              autoComplete="off"
-            />
-            <Button type="submit" content="Gönder" primary />
-          </Form>
+          {({ isSubmitting, isValid }) => (
+            <Form className="ui form">
+              <TextInput name="name" placeholder="İsim" autoComplete="off" />
+              <TextInput name="email" placeholder="Email" autoComplete="off" />
+              <TextArea
+                name="comment"
+                placeholder="Mesajınız"
+                rows="3"
+                autoComplete="off"
+              />
+              <Button
+                disabled={isSubmitting || isValid}
+                type="submit"
+                content="Gönder"
+                primary
+              />
+            </Form>
+          )}
         </Formik>
       </Segment>
       <Segment>

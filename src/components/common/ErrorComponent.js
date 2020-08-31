@@ -10,7 +10,7 @@ export default function ErrorComponent() {
     <Segment placeholder>
       <Header
         textAlign="center"
-        content={error?.message || "Oops - we have an error"}
+        content={error?.message || "Bir hata oluştu"}
       />
       <Button
         as={Link}

@@ -26,21 +26,20 @@ export default function UnAuthModal() {
       size="mini"
       header="Devam Edebilmek Giriş Yapın Veya Üye Olun"
     >
-      <Button.Group widths={4}>
-        <Button
-          fluid
-          color="teal"
-          content="Giriş"
-          onClick={handleOpen.bind(this, "login")}
-        />
-        <Divider horizontal content="veya" />
-        <Button
-          fluid
-          color="green"
-          content="Üye Ol"
-          onClick={handleOpen.bind(this, "register")}
-        />
-      </Button.Group>
+      <Button
+        fluid
+        color="teal"
+        content="Giriş"
+        onClick={handleOpen.bind(this, "login")}
+      />
+      <Divider horizontal content="veya" />
+      <Button
+        fluid
+        color="green"
+        content="Üye Ol"
+        onClick={handleOpen.bind(this, "register")}
+      />
+
       <Divider />
       <div style={{ textAlign: "center" }}>
         <p>Misafir Olarak Devam Etmek İçin İptal'i Tıklayın</p>

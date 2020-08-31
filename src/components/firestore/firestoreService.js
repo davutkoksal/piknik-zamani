@@ -41,6 +41,11 @@ export async function ListenToFilteredPlacesFromFirestore(city) {
   });
   return places;
 }
+export function addMessageToFirestore(message) {
+  return db.collection("messages").add({
+    ...message,
+  });
+}
 
 export function addPlaceToFirestore(place) {
   const user = firebase.auth().currentUser;
@@ -63,6 +68,7 @@ export function addEventToFirestore(event) {
     hostUid: user.uid,
     hostedBy: user.displayName,
     hostPhotoURL: user.photoURL || null,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     attendees: firebase.firestore.FieldValue.arrayUnion({
       id: user.uid,
       displayName: user.displayName,
@@ -78,6 +84,10 @@ export function ListenToEventsFromFirestore() {
 
 export function ListenToEventFromFirestore(eventId) {
   return db.collection("events").doc(eventId);
+}
+
+export function ListenToActivitiesFromFirestore() {
+  return db.collection("activity");
 }
 
 export function cancelEventToggle(event) {

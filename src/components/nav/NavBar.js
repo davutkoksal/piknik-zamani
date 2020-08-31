@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, Container, Responsive } from "semantic-ui-react";
+import { Menu, Container } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import SignedOutMenu from "./SignedOutMenu";
 import SignedInMenu from "./SignedInMenu";
@@ -11,7 +11,7 @@ export default function NavBar() {
   const dispatch = useDispatch();
   return (
     <>
-      <Responsive as={Menu} inverted fixed="top" minWidth={768}>
+      <Menu inverted fixed="top" stackable>
         <Container>
           <Menu.Item as={NavLink} exact to="/homepage">
             <img
@@ -37,32 +37,7 @@ export default function NavBar() {
           )}
           {authenticated ? <SignedInMenu /> : <SignedOutMenu />}
         </Container>
-      </Responsive>
-      <Responsive inverted as={Menu} maxWidth={768} stackable>
-        <Menu.Item as={NavLink} exact to="/homepage">
-          <img
-            src="/assets/logo.png"
-            alt="logo"
-            style={{ marginRight: "0.5rem" }}
-          />
-          Piknik-Zamanı
-        </Menu.Item>
-        <Menu.Item as={NavLink} to="/places">
-          Piknik Yerleri
-        </Menu.Item>
-        {authenticated ? (
-          <Menu.Item as={NavLink} to="/events">
-            Piknik Organizasyonları
-          </Menu.Item>
-        ) : (
-          <Menu.Item
-            onClick={() => dispatch(openModal({ modalType: "UnAuthModal" }))}
-          >
-            Piknik Organizasyonları
-          </Menu.Item>
-        )}
-        {authenticated ? <SignedInMenu /> : <SignedOutMenu />}
-      </Responsive>
+      </Menu>
     </>
   );
 }

@@ -3,7 +3,7 @@ import { Dimmer, Loader } from "semantic-ui-react";
 
 export default function LoadingComponent({
   inverted = true,
-  content = "Loading...",
+  content = "Yükleniyor...",
 }) {
   return (
     <Dimmer inverted={inverted} active={true}>

@@ -87,6 +87,11 @@ export default function PlaceForm({ history }) {
               type="submit"
               content="Ekle"
             />
+            <Button
+              primary
+              content="İptal"
+              onClick={() => history.push("/places")}
+            />
           </Form>
         )}
       </Formik>
